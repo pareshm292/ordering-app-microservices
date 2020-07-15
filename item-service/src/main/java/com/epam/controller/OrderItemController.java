@@ -45,6 +45,18 @@ private static final Logger LOGGER = LoggerFactory.getLogger(OrderItemController
 		}
 	}
 	
+	@GetMapping("/{name}")
+	public OrderItem findByItemCode(@PathVariable("name") String name) throws OrderItemNotFoundException {
+		LOGGER.info("OrderItem find: name={}", name);
+		Optional<OrderItem> itemOptional =  repository.findByItemName(name);
+		if(itemOptional.isPresent()) {
+			return itemOptional.get();
+		}
+		else {
+			throw new OrderItemNotFoundException("Item with specified id " + name + " not found.");
+		}
+	}
+	
 	@GetMapping("/")
 	public List<OrderItem> findAll() {
 		LOGGER.info("OrderItem find");
