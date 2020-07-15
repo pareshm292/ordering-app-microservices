@@ -34,27 +34,21 @@ public class OrderController {
 	private OrderRepository repository;
 	
 	@PostMapping("/")
-	public Order create(@RequestBody Order item) {
-		LOGGER.info("OrderItem add: {}",item);
-		return repository.save(item);
+	public Order create(@RequestBody Order order) {
+		LOGGER.info("Order create : {}" , order);
+		return repository.save(order);
 	}
 	
 	@GetMapping("/{id}")
-	public OrderItem findByItemCode(@PathVariable("id") Integer id) throws OrderItemNotFoundException {
-		LOGGER.info("OrderItem find: id={}", id);
-		Optional<OrderItem> itemOptional =  repository.findById(id);
+	public Order findByOrderId(@PathVariable("id") Integer id) throws OrderNotFoundException {
+		LOGGER.info("Order find: id={}", id);
+		Optional<Order> itemOptional =  repository.findById(id);
 		if(itemOptional.isPresent()) {
 			return itemOptional.get();
 		}
 		else {
-			throw new OrderItemNotFoundException("Item with specified id " + id + " not found.");
+			throw new OrderNotFoundException("Order with specified id " + id + " not found.");
 		}
-	}
-	
-	@GetMapping("/")
-	public List<OrderItem> findAll() {
-		LOGGER.info("OrderItem find");
-		return repository.findAll();
 	}
 	
 	@PutMapping("/{id}")
