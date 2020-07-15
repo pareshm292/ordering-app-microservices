@@ -8,4 +8,6 @@ import com.epam.model.OrderItem;
 @Repository
 public interface OrderItemRepository extends JpaRepository<OrderItem, Integer> {
 
+	public OrderItem findByItemName(String itemName);
+	
 }

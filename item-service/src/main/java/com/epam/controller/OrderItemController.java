@@ -28,7 +28,7 @@ private static final Logger LOGGER = LoggerFactory.getLogger(OrderItemController
 	private OrderItemRepository repository;
 	
 	@PostMapping("/")
-	public Order create(@RequestBody OrderItem item) {
+	public OrderItem create(@RequestBody OrderItem item) {
 		LOGGER.info("OrderItem add: {}",item);
 		return repository.save(item);
 	}
